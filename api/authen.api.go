@@ -2,12 +2,12 @@ package api
 
 import (
 	"main/db"
+	"main/interceptor"
 	"main/model"
 	"time"
 
 	"github.com/gin-gonic/gin"
 	"golang.org/x/crypto/bcrypt"
-	"github.com/dgrijalva/jwt-go"
 )
 
 func SetupAuthenAPI(router *gin.Engine) {
@@ -22,30 +22,17 @@ func login(c *gin.Context) {
 	var user model.User
 
 	if c.ShouldBind(&user) == nil {
-		var queryUser model.User		
+		var queryUser model.User
 		if err := db.GetDB().First(&queryUser, "username = ?", user.Username).Error; err != nil {							
 			c.JSON(200, gin.H{"result": "nok", "error": err})
-		}else if (checkPasswordHash(user.Password, queryUser.Password) == false){
+			} else if checkPasswordHash(user.Password, queryUser.Password) == false {
 			c.JSON(200, gin.H{"result": "nok", "error": "invalid password"})
-			}else{		
-
-				atClaims := jwt.MapClaims{}
-				// Payload begin
-				atClaims["id"] = queryUser.ID
-				atClaims["username"] = queryUser.Username
-				atClaims["level"] = queryUser.Level
-				atClaims["exp"] = time.Now().Add(time.Minute * 15).Unix()
-				// Payload end
-				
-				at := jwt.NewWithClaims(jwt.SigningMethodHS256, atClaims)
-				token, _ := at.SignedString([]byte("1234"))
-	
-				c.JSON(200, gin.H{"result": "ok", "token": token})
-		}
-
+			
 	} else {
-		c.JSON(401, gin.H{"status": "unable to bind data"})
-	}	
+		token := interceptor.JwtSign(queryUser)
+		c.JSON(200, gin.H{"result": "ok", "token": token})
+	}
+	}
 }
 
 func register(c *gin.Context) {

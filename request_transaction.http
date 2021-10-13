@@ -4,13 +4,13 @@ GET http://localhost:8083/api/v2/transaction HTTP/1.1
 ### Create Tranaction 
 POST http://localhost:8083/api/v2/transaction HTTP/1.1
 Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJleHAiOjE2MzQwOTE3MTAsImlkIjoyLCJsZXZlbCI6Im5vcm1hbCIsInVzZXJuYW1lIjoicmEifQ.KX8FzY6SRIdwFQw7Uzxa4SaYHNWhdoILZYjLaK1Aof4
 
 {
-  "total": 700,
-  "paid": 100,
+  "total": 900,
+  "paid": 999,
   "change": 49.50,
   "payment_type": "cash",
   "payment_detail": "full",
-  "order_list": "[]",
-  "staff_id": "1"
+  "order_list": "[]"
 } 

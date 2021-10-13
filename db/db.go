@@ -19,13 +19,13 @@ func GetDB() *gorm.DB {
 // SetupDB - setup dabase for sharing to all api
 func SetupDB() {
 
-
 	database, err := gorm.Open(sqlite.Open("database.db"), &gorm.Config{})	
 	if err != nil {
 		panic("failed to connect database")
 	}
 
 	database.AutoMigrate(&model.User{})
+	database.AutoMigrate(&model.Product{})
 
 	db = database
 }

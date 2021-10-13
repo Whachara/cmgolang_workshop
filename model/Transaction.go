@@ -1,6 +1,7 @@
 package model
 
 import "time"
+// https://gorm.io/docs/query.html
 
 type Transaction struct {
 	ID            uint         `gorm:"primary_key"`

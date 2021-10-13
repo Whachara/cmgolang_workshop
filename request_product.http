@@ -5,6 +5,8 @@ GET http://localhost:8083/api/v2/product HTTP/1.1
 GET http://localhost:8083/api/v2/product HTTP/1.1
 Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJleHAiOjE2MzQwODI5MjAsImlkIjoxLCJsZXZlbCI6Im5vcm1hbCIsInVzZXJuYW1lIjoiYWRtaW4ifQ.3spGhVK4qSzfwOpTQnGTcpHMrJ13XnyehXLnM-g0QcI
 
+### Get Product by ID 
+GET http://localhost:8083/api/v2/product/5 HTTP/1.1
 
 ### Create 
 POST http://localhost:8083/api/v2/product HTTP/1.1

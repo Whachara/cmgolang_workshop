@@ -1,7 +1,9 @@
 package main
 
 import (
+	"fmt"
 	"main/api"
+	"os"
 
 	"github.com/gin-gonic/gin"
 )
@@ -11,15 +13,15 @@ func main() {
 	router.Static("/images", "./uploaded/images")
 
 	api.Setup(router)
-	router.Run(":8083")
+	// router.Run(":8083")
 
 	// In case of running on Heroku
-	// var port = os.Getenv("PORT")
-	// if port == "" {
-	// 	fmt.Println("Running on Heroku using random PORT")
-	// 	router.Run()
-	// } else {
-	// 	fmt.Println("Environment Port : " + port)
-	// 	router.Run(":" + port)
-	// }
+	var port = os.Getenv("PORT")
+	if port == "" {
+		fmt.Println("Running on Heroku using random PORT")
+		router.Run()
+	} else {
+		fmt.Println("Environment Port : " + port)
+		router.Run(":" + port)
+	}
 }

@@ -1,9 +1,12 @@
 package api
 
 import (
-	"github.com/gin-gonic/gin"
 	"main/interceptor"
-)		
+	"main/model"
+	"strconv"
+
+	"github.com/gin-gonic/gin"
+)
 
 // SetupProductAPI - call this method to setup product route group
 func SetupProductAPI(router *gin.Engine) {
@@ -19,5 +22,9 @@ func getProduct(c *gin.Context) {
 }
 
 func createProduct(c *gin.Context) {
-	c.JSON(200, gin.H{"result": "create product"})
+	product := model.Product{}
+	product.Name = c.PostForm("name")
+	product.Stock, _ = strconv.ParseInt(c.PostForm("stock"), 10, 64)
+	product.Price, _ = strconv.ParseFloat(c.PostForm("price"), 64)
+	c.JSON(200, gin.H{"result": product})
 }

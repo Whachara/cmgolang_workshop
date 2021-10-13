@@ -19,12 +19,14 @@ func SetupTransactionAPI(router *gin.Engine)  {
 
 
 func getTransaction(c *gin.Context) {
-	c.String(http.StatusOK, "List Transaction")
+	var transactions []model.Transaction
+	db.GetDB().Find(&transactions)
+	c.JSON(200, transactions)
 }
 
 func createTransaction(c *gin.Context) {
-	var transaction model.Transaction	
-	if err := c.ShouldBind(&transaction); err == nil {		
+	var transaction model.Transaction
+	if err := c.ShouldBind(&transaction); err == nil {
 		transaction.CreatedAt = time.Now()		
 		db.GetDB().Create(&transaction)
 		c.JSON(http.StatusOK, gin.H{"result": "ok", "data": transaction})

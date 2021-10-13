@@ -6,7 +6,7 @@ POST http://localhost:8083/api/v2/transaction HTTP/1.1
 Content-Type: application/json
 
 {
-  "total": 50.50,
+  "total": 700,
   "paid": 100,
   "change": 49.50,
   "payment_type": "cash",
